@@ -1,0 +1,40 @@
+{/* VueNumLocaleInput.mdx */}
+
+{/* import { Meta, Canvas, Story, Source, ArgsTable } from "@storybook/addon-docs";*/}
+
+import { Canvas, Meta, Story } from '@storybook/blocks';
+
+import { Source, Description } from '@storybook/addon-docs';
+
+import * as VueNumLocaleInputStories from "./VueNumLocaleInput.stories";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+<Meta of={VueNumLocaleInputStories} />
+
+# VueNumLocaleInput
+
+---
+
+> "Dual" form input field: numeric when focused (edited), locale string when without focus (shown)
+
+---
+
+## Rationale
+
+The basic idea is that it would be difficult to make **editable** numeric form field that is formatted in some way (e.g. spaces between numbers). However, it is very easy to make a non-editable text field displaying a number in national format (see [Number.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString) and [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)).
+
+Thus, the component internally switches between a "localized" non-editable text `input` (the default display) and a "normal" numeric `input` in which editing takes place. The component switches to the numeric input if it gets focus. After losing it, it switches back to the text localised input.
+
+## Usage
+
+The component can be handled like a normal numeric `input` element, because both internal input fields take the attributes passed to the component (you can define css classes, `min`, `max`, etc.).
+
+> Warning! The component **must not** have a `type` defined (`text`, `number`, event, other). The type is defined by the two internal inputs themselves, and an external definition would override this.
+
+## Single field with options
+
+<Canvas of={VueNumLocaleInputStories.SingleFieldWithOptions} />
+
+## Three fields as Bootstrap Input Group
+
+<Canvas of={VueNumLocaleInputStories.ThreeFieldsBootstraped} />
