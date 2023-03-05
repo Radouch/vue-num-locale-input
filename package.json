@@ -4,6 +4,15 @@
   "description": "Vue 3 component: input numeric field which is rendered as language sensitive string",
   "version": "0.9.1",
   "private": false,
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue-js",
+    "input",
+    "form",
+    "html",
+    "locale"
+  ],
   "files": [
     "src/lib-components",
     "dist"
