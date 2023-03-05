@@ -2,7 +2,7 @@
   "name": "vue-num-locale-input",
   "author": "Radouch",
   "description": "Vue 3 component: input numeric field which is rendered as language sensitive string",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "private": false,
   "keywords": [
     "vue",
@@ -13,6 +13,14 @@
     "html",
     "locale"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Radouch/vue-num-locale-input.git"
+  },
+  "homepage": "https://github.com/Radouch/vue-num-locale-input#readme",
+  "bugs": {
+    "url" : "https://github.com/Radouch/vue-num-locale-input/issues"
+  },
   "files": [
     "src/lib-components",
     "dist"
