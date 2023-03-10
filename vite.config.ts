@@ -34,10 +34,6 @@ export default defineConfig({
       entry: resolve(__dirname, "src/lib-components/index.ts"),
       name: "VueNumLocaleInput",
       fileName: "vue-num-locale-input",
-      // the proper extensions will be added
-      // fileName: "test-lib",
-      // fileName: (format) => `test-lib.${format}.js`,
-      // formats: ["es", "umd", "iife"],
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
@@ -49,7 +45,6 @@ export default defineConfig({
         globals: {
           vue: "Vue",
         },
-        exports: "named",
       },
     },
   },
