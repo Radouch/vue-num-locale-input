@@ -8,6 +8,13 @@
 * Locale formatted number is displayed **only** if the field does **not** have focus. Otherwise it looks and behaves as normal numeric input field.
 * Especially useful for creating clear and easy to read tables containing numbers.
 
+## Sample
+
+English locale, used in Boostrap Input Group
+
+* Edit: ![Input field is edited](field-edit.png)
+* Display (2 fraction digits): ![Input field is displayed](field-display.png)
+
 ## Installation
 
 ```cmd
