@@ -4,8 +4,14 @@ import{d as N,a as r,b as x,e as m,m as p,F as I,n as y,o as L}from"./vue.esm-bu
 }`}}],events:[{name:"update:modelValue"}]};const S={title:"VueNumLocaleInput",component:i},s={render:e=>({components:{VueNumLocaleInput:i},setup(){let n=r(12);return{args:e,model:n,updateModel:a=>n.value=a}},data(){return{numValue:13}},template:'<VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" />'}),args:{min:-2,max:2e4,options:{notation:"scientific",minimumFractionDigits:1,maximumFractionDigits:3,minimumIntegerDigits:3}}},o={name:"Three fields as Bootstrap Input Group",render:(e,n)=>({components:{VueNumLocaleInput:i},data(){return{secondValue:-273.15}},setup(){let u=r(12);return{args:e,args2:n,firstValue:u,updateFirstValue:t=>u.value=t}},template:`
     <div class="mb-4">first value: {{firstValue}}, second value: {{secondValue}}</div>
   <div class="input-group mb-3">
-  <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" /><span class="input-group-text">also firstValue</span><VueNumLocaleInput v-bind="args" v-model="firstValue" /><span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" /></div>
-  `}),args:{step:1,max:20,class:"form-control"},args2:{step:2,max:22,class:"form-control"}};var d,c,V;s.parameters={...s.parameters,docs:{...(d=s.parameters)==null?void 0:d.docs,source:{originalSource:`{
+  <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" />
+  </div>
+  <div class="input-group mb-3">
+  <span class="input-group-text">also firstValue</span><VueNumLocaleInput v-bind="args" v-model="firstValue" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" />
+  </div>,`}),args:{step:1,max:20,class:"form-control"},args2:{step:2,max:22,class:"form-control"}};var d,c,v;s.parameters={...s.parameters,docs:{...(d=s.parameters)==null?void 0:d.docs,source:{originalSource:`{
   render: args => ({
     components: {
       VueNumLocaleInput
@@ -36,7 +42,7 @@ import{d as N,a as r,b as x,e as m,m as p,F as I,n as y,o as L}from"./vue.esm-bu
       minimumIntegerDigits: 3
     }
   }
-}`,...(V=(c=s.parameters)==null?void 0:c.docs)==null?void 0:V.source}}};var v,g,f;o.parameters={...o.parameters,docs:{...(v=o.parameters)==null?void 0:v.docs,source:{originalSource:`{
+}`,...(v=(c=s.parameters)==null?void 0:c.docs)==null?void 0:v.source}}};var V,g,f;o.parameters={...o.parameters,docs:{...(V=o.parameters)==null?void 0:V.docs,source:{originalSource:`{
   name: "Three fields as Bootstrap Input Group",
   render: (args, args2) => ({
     components: {
@@ -60,8 +66,14 @@ import{d as N,a as r,b as x,e as m,m as p,F as I,n as y,o as L}from"./vue.esm-bu
     template: \`
     <div class="mb-4">first value: {{firstValue}}, second value: {{secondValue}}</div>
   <div class="input-group mb-3">
-  <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" /><span class="input-group-text">also firstValue</span><VueNumLocaleInput v-bind="args" v-model="firstValue" /><span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" /></div>
-  \`
+  <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" />
+  </div>
+  <div class="input-group mb-3">
+  <span class="input-group-text">also firstValue</span><VueNumLocaleInput v-bind="args" v-model="firstValue" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" />
+  </div>,\`
   }),
   args: {
     step: 1,
@@ -74,4 +86,4 @@ import{d as N,a as r,b as x,e as m,m as p,F as I,n as y,o as L}from"./vue.esm-bu
     class: "form-control"
   }
 }`,...(f=(g=o.parameters)==null?void 0:g.docs)==null?void 0:f.source}}};const D=["SingleFieldWithOptions","ThreeFieldsBootstraped"],M=Object.freeze(Object.defineProperty({__proto__:null,SingleFieldWithOptions:s,ThreeFieldsBootstraped:o,__namedExportsOrder:D,default:S},Symbol.toStringTag,{value:"Module"}));export{s as S,o as T,M as V};
-//# sourceMappingURL=VueNumLocaleInput.stories-ed5eb622.js.map
+//# sourceMappingURL=VueNumLocaleInput.stories-87cea8da.js.map
