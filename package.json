@@ -18,9 +18,9 @@
     "type": "git",
     "url": "https://github.com/Radouch/vue-num-locale-input.git"
   },
-  "homepage": "https://github.com/Radouch/vue-num-locale-input#readme",
+  "homepage": "https://radouch.github.io/vue-num-locale-input",
   "bugs": {
-    "url" : "https://github.com/Radouch/vue-num-locale-input/issues"
+    "url": "https://github.com/Radouch/vue-num-locale-input/issues"
   },
   "files": [
     "src/lib-components",
@@ -43,7 +43,8 @@
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build && echo. > ./storybook-static/.nojekyll",
+    "deploy-storybook": "gh-pages -d ./storybook-static -t true"
   },
   "dependencies": {
     "vue": "^3.2.45"
@@ -66,6 +67,7 @@
     "eslint": "^8.22.0",
     "eslint-plugin-storybook": "^0.6.8",
     "eslint-plugin-vue": "^9.3.0",
+    "gh-pages": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
