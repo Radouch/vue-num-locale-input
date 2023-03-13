@@ -57,8 +57,14 @@ export const ThreeFieldsBootstraped = {
     template: `
     <div class="mb-4">first value: {{firstValue}}, second value: {{secondValue}}</div>
   <div class="input-group mb-3">
-  <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" /><span class="input-group-text">also firstValue</span><VueNumLocaleInput v-bind="args" v-model="firstValue" /><span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" /></div>
-  `,
+  <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" />
+  </div>
+  <div class="input-group mb-3">
+  <span class="input-group-text">also firstValue</span><VueNumLocaleInput v-bind="args" v-model="firstValue" />
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" />
+  </div>,`
   }),
   args: {
     step: 1,

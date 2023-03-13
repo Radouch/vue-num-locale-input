@@ -15,7 +15,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 ---
 
-> "Dual" form input field: numeric when focused (edited), locale string when without focus (shown)
+> **"Dual" form input field: numeric when focused (edited), text as locale string when without focus (shown)**
 
 ---
 
@@ -23,7 +23,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 The basic idea is that it would be difficult to make **editable** numeric form field that is formatted in some way (e.g. spaces between numbers). However, it is very easy to make a non-editable text field displaying a number in national format (see [Number.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString) and [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)).
 
-Thus, the component internally switches between a "localized" non-editable text `input` (the default display) and a "normal" numeric `input` in which editing takes place. The component switches to the numeric input if it gets focus. After losing it, it switches back to the text localised input.
+Thus, the component internally switches between a "localized" non-editable `input type="text"` (the default display) and a "normal" `input  type="number"` in which editing takes place. The component switches to the numeric input if it gets focus. After losing focus, it switches back to the text localised input.
 
 ## Usage
 
