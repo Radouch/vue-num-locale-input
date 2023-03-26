@@ -1,7 +1,5 @@
 {/* VueNumLocaleInput.mdx */}
 
-{/* import { Meta, Canvas, Story, Source, ArgsTable } from "@storybook/addon-docs";*/}
-
 import { Canvas, Meta, Story } from '@storybook/blocks';
 
 import { Source, Description } from '@storybook/addon-docs';
@@ -14,13 +12,17 @@ import * as VueNumLocaleInputStories from "./VueNumLocaleInput.stories";
 
 ---
 
-> **"Dual" form input field: numeric when focused (edited), text as locale string when without focus (shown)**
+> [Vue 3](https://vuejs.org/) **form input field** component edited as **numeric input field**, displayed as **language sensitive text field**
 
 ---
 
+* For language-sensitive representation of numbers see [Number.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString)
+* Locale formatted number is displayed **only** if the field does **not** have focus. Otherwise it looks and behaves as normal numeric input field.
+* Especially useful for creating clear and easy to read tables containing numbers.
+
 ## Rationale
 
-The basic idea is that it would be difficult to make **editable** numeric form field that is formatted in some way (e.g. spaces between numbers). However, it is very easy to make a non-editable text field displaying a number in national format (see [Number.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString) and [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)).
+The basic idea is that it would be difficult to make **editable** numeric form field that is formatted in some way (e.g. spaces between numbers). However, it is very easy to make a non-editable text field displaying a number in localized format (see [Number.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString) and [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)).
 
 Thus, the component internally switches between a "localized" non-editable `input type="text"` (the default display) and a "normal" `input  type="number"` in which editing takes place. The component switches to the numeric input if it gets focus. After losing focus, it switches back to the text localised input.
 

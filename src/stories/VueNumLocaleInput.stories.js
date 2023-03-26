@@ -24,7 +24,10 @@ export const SingleFieldWithOptions = {
     data() {
       return { numValue: 13 };
     },
-    template: `<VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" />`,
+    template: `
+    <h3>Field displaying number in scientific notation</h3>
+    <VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" />
+    `,
   }),
   args: {
     min: -2,
@@ -40,7 +43,7 @@ export const SingleFieldWithOptions = {
 
 export const ThreeFieldsBootstraped = {
   name: "Three fields as Bootstrap Input Group",
-  render: (args, args2) => ({
+  render: (args) => ({
     components: { VueNumLocaleInput },
     data() {
       return { secondValue: -273.15 };
@@ -50,12 +53,12 @@ export const ThreeFieldsBootstraped = {
       const updateFirstValue = (event) => (firstValue.value = event);
       return {
         args,
-        args2,
         firstValue,
         updateFirstValue,
       };
     },
     template: `
+    <h3>Three fields as Bootstrap Input Group</h3>
     <div class="mb-4">first value: {{firstValue}}, second value: {{secondValue}}</div>
   <div class="input-group mb-3">
   <span class="input-group-text">first value</span><VueNumLocaleInput v-bind="args" :modelValue="firstValue" @update:modelValue="updateFirstValue" />
@@ -71,10 +74,48 @@ export const ThreeFieldsBootstraped = {
     step: 1,
     max: 20,
     class: "form-control",
-  },
-  args2: {
-    step: 2,
-    max: 22,
-    class: "form-control",
+  }
+};
+
+export const NumericTable = {
+  name: "Numeric Table",
+  render: (args) => ({
+    components: { VueNumLocaleInput },
+    data() {
+      return { secondValue: -273.15 };
+    },
+    setup() {
+      let numArray = ref([]);
+      const min = -10000000;
+      const max =  10000000;
+      for (let i = 0; i < 10; i++) {
+        let row = [];
+        for (let j = 0; j < 4; j++) {
+          row.push(Math.random() * (max - min + 1) +min);
+        }
+        numArray.value.push(row);
+      }
+      console.log(numArray.value);
+      return {
+        args,
+        numArray
+      };
+    },
+    template: `
+    <h3>Table with random generated numbers from -1E7 to +1E7</h3>
+    <div class="table-responsive">
+    <table class="table table-primary table-bordered">
+    <tbody>
+    <tr v-for="row in numArray">
+    <td v-for="cell in row"><VueNumLocaleInput v-bind="args" v-model="cell" /></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+`
+  }),
+  args: {
+    step: 1,
+    class: "form-control text-end",
   }
 };
