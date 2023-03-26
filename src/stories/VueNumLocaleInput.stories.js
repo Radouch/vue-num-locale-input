@@ -74,6 +74,11 @@ export const ThreeFieldsBootstraped = {
     step: 1,
     max: 20,
     class: "form-control",
+    options: {
+      minimumFractionDigits: undefined,
+      maximumFractionDigits: undefined,
+    }
+
   }
 };
 
@@ -117,5 +122,9 @@ export const NumericTable = {
   args: {
     step: 1,
     class: "form-control text-end",
+    options: {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }
   }
 };

@@ -34,10 +34,7 @@ defineProps({
   options: {
     type: Object,
     required: false,
-    default: () => ({
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }),
+    default: () => ({}),
   },
 });
 

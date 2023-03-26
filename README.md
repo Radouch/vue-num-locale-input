@@ -35,7 +35,7 @@ import VueNumLocaleInput from "vue-num-locale-input";
     min="-10"
     max="10"
     step="2"
-    :options="{maximumFractionDigits: 1}"
+    :options="{minimumFractionDigits: 1, maximumFractionDigits: 1}"
   />
 </template>
 ```
@@ -43,5 +43,5 @@ import VueNumLocaleInput from "vue-num-locale-input";
 ## Important notes
 
 * Default _locales_ is used (= browser settings). This version of the component does not allow to set it manually by props.
-* Property `options` is the same as documented in [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat).
+* Property `options` is the same as documented in [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat). Likely the most useful options are `minimumFractionDigits` and `maximumFractionDigits`, especially for tables.
 * You **must not** use html attribute _type_ (e.g. `type="number"`) on the component. It breaks its functionality.
