@@ -1,6 +1,7 @@
 /* VueNumLocaleInput.stories.js */
 
 import VueNumLocaleInput from "../lib-components/vue-num-locale-input.vue";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { ref } from "vue";
 
 export default {
