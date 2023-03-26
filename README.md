@@ -18,7 +18,7 @@
 
 ### Bootstrap table, English locale, first field edited
 
-![Table, first item is edited](table_cs.png)
+![Table, first item is edited](table_en.png)
 
 ## Installation
 
