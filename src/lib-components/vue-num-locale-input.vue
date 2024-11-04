@@ -14,7 +14,7 @@
   <input
     type="number"
     v-bind="$attrs"
-    :value="modelValue"
+    v-model="internalValue"
     @input="updateValue"
     :style="shown === 'text' ? 'display: none' : ''"
     @focusout="handleNumberFocusOut"
@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { ref, nextTick } from "vue";
 
-defineProps({
+const props = defineProps({
   modelValue: {
     type: Number,
     required: false,
@@ -40,8 +40,15 @@ defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const updateValue = (event: any) => {
-  emit("update:modelValue", Number(event.target.value));
+const internalValue = ref<number>();
+
+const updateValue = () => {
+  /* if (isNaN(parseFloat(event.target.value)) === false) {
+    emit("update:modelValue", Number(event.target.value));
+  } */
+  if (internalValue.value && isNaN(internalValue.value) === false) {
+    emit("update:modelValue", internalValue.value);
+  }
 };
 
 /** HTML Input type=number element */
@@ -50,8 +57,9 @@ const inpnum = ref<HTMLElement | null>(null);
 /** Which type of input is shown? */
 const shown = ref("text");
 
-/** Handle FocusIn event on input type=text */
+/** Handle FocusIn event on input type=text - replace text input with number input */
 const handleNumberFocusIn = async () => {
+  internalValue.value = props.modelValue;
   shown.value = "number";
   if (inpnum.value !== null) {
     await nextTick();
