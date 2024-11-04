@@ -46,7 +46,11 @@ const updateValue = () => {
   /* if (isNaN(parseFloat(event.target.value)) === false) {
     emit("update:modelValue", Number(event.target.value));
   } */
-  if (internalValue.value && isNaN(internalValue.value) === false) {
+  if (
+    internalValue.value !== undefined &&
+    internalValue.value !== null &&
+    isNaN(internalValue.value) === false
+  ) {
     emit("update:modelValue", internalValue.value);
   }
 };
