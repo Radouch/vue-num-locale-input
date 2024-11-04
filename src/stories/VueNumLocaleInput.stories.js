@@ -14,19 +14,19 @@ export default {
 };
 
 export const SingleFieldWithOptions = {
-    render: (args) => ({
+  render: (args) => ({
     components: { VueNumLocaleInput },
     setup() {
       let model = ref(12);
       const updateModel = (event) => (model.value = event);
       return { args, model, updateModel };
     },
-    data() {
-      return { numValue: 13 };
-    },
     template: `
     <h3>Field displaying number in scientific notation</h3>
-    <VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" />
+    <div style="max-width: 40rem" class="mt-4">
+    <div class="input-group mb-4"><span class="input-group-text bg-secondary-subtle w-50">Outside input: </span><input type="number" v-model="model" class="form-control" /></div>
+    <div class="input-group"><span class="input-group-text bg-secondary-subtle w-50">VueNumLocaleInput component</span><VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" class="form-control" /></div>
+    </div>
     `,
   }),
   args: {
@@ -34,10 +34,10 @@ export const SingleFieldWithOptions = {
     max: 20000,
     options: {
       notation: "scientific",
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 3,
-      minimumIntegerDigits: 3
-    }
+      // minimumFractionDigits: 1,
+      // maximumFractionDigits: 3,
+      // minimumIntegerDigits: 3,
+    },
   },
 };
 
@@ -68,7 +68,7 @@ export const ThreeFieldsBootstraped = {
   </div>
   <div class="input-group mb-3">
     <span class="input-group-text">second value</span><VueNumLocaleInput v-bind="args" v-model="secondValue" />
-  </div>,`
+  </div>,`,
   }),
   args: {
     step: 1,
@@ -77,13 +77,11 @@ export const ThreeFieldsBootstraped = {
     options: {
       minimumFractionDigits: undefined,
       maximumFractionDigits: undefined,
-    }
-
-  }
+    },
+  },
 };
 
 export const NumericTable = {
-  name: "Numeric Table",
   render: (args) => ({
     components: { VueNumLocaleInput },
     data() {
@@ -92,18 +90,18 @@ export const NumericTable = {
     setup() {
       let numArray = ref([]);
       const min = -10000000;
-      const max =  10000000;
+      const max = 10000000;
       for (let i = 0; i < 10; i++) {
         let row = [];
         for (let j = 0; j < 4; j++) {
-          row.push(Math.random() * (max - min + 1) +min);
+          row.push(Math.random() * (max - min + 1) + min);
         }
         numArray.value.push(row);
       }
       console.log(numArray.value);
       return {
         args,
-        numArray
+        numArray,
       };
     },
     template: `
@@ -117,7 +115,7 @@ export const NumericTable = {
     </tbody>
     </table>
     </div>
-`
+`,
   }),
   args: {
     step: 1,
@@ -125,6 +123,6 @@ export const NumericTable = {
     options: {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
-    }
-  }
+    },
+  },
 };
