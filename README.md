@@ -7,6 +7,7 @@
 * For language-sensitive representation of numbers see [Number.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString)
 * Locale formatted number is displayed **only** if the field does **not** have focus. Otherwise it looks and behaves as normal numeric input field.
 * Especially useful for creating clear and easy to read tables containing numbers.
+* Also useful for displaying numbers in exponential notation.
 
 ## Samples
 
@@ -48,5 +49,5 @@ import VueNumLocaleInput from "vue-num-locale-input";
 ## Important notes
 
 * Default _locales_ is used (= browser settings). This version of the component does not allow to set it manually by props.
-* Property `options` is the same as documented in [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat). Likely the most useful options are `minimumFractionDigits` and `maximumFractionDigits`, especially for tables.
+* Property `options` is the same as documented in [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat). Likely the most useful options are `minimumFractionDigits` and `maximumFractionDigits`, especially for tables, and `notation: "scientific"` for displaying numbers in exponential notation.
 * You **must not** use html attribute _type_ (e.g. `type="number"`) on the component. It breaks its functionality.
