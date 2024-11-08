@@ -84,9 +84,6 @@ export const ThreeFieldsBootstraped = {
 export const NumericTable = {
   render: (args) => ({
     components: { VueNumLocaleInput },
-    data() {
-      return { secondValue: -273.15 };
-    },
     setup() {
       let numArray = ref([]);
       const min = -10000000;
@@ -94,7 +91,7 @@ export const NumericTable = {
       for (let i = 0; i < 10; i++) {
         let row = [];
         for (let j = 0; j < 4; j++) {
-          row.push(Math.random() * (max - min + 1) + min);
+          row.push(ref(Math.random() * (max - min + 1) + min));
         }
         numArray.value.push(row);
       }
@@ -110,7 +107,7 @@ export const NumericTable = {
     <table class="table table-primary table-bordered">
     <tbody>
     <tr v-for="row in numArray">
-    <td v-for="cell in row"><VueNumLocaleInput v-bind="args" v-model="cell" /></td>
+    <td v-for="cell in row"><VueNumLocaleInput v-bind="args" v-model="cell.value" /></td>
     </tr>
     </tbody>
     </table>
