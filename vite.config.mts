@@ -20,7 +20,7 @@ export default defineConfig({
         "./src/lib-components/*.vue",
         "./src/lib-components/*.ts",
       ],
-      outputDir: "dist/types",
+      outDir: "dist/types",
     }),
   ],
   resolve: {
