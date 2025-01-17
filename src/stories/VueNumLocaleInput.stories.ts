@@ -1,32 +1,45 @@
-/* VueNumLocaleInput.stories.js */
+/* VueNumLocaleInput.stories.ts */
 
+import type { Meta, StoryObj } from "@storybook/vue3";
 import VueNumLocaleInput from "../lib-components/vue-num-locale-input.vue";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 
-export default {
-  /* 👇 The title prop is optional.
-   * See https://storybook.js.org/docs/7.0/react/configure/overview#configure-story-loading
-   * to learn how to generate automatic titles
-   */
-  title: "VueNumLocaleInput",
-  component: VueNumLocaleInput,
+type Story = StoryObj<typeof VueNumLocaleInput> & {args: {min?: number, max?: number, step?: number}};
+
+const meta: Meta<Story> = {
+  component: VueNumLocaleInput
 };
 
-export const SingleFieldWithOptions = {
-  render: (args) => ({
+export default meta;
+
+export const SingleFieldWithOptions: Story = {
+  decorators: [
+    () => ({
+      template: `
+        <h3>Field displaying number in scientific notation</h3>
+        <div style="max-width: 40rem" class="mt-4">
+        <story />
+        </div>
+      `,
+    }),
+  ],
+  render: (args: any) => ({
     components: { VueNumLocaleInput },
     setup() {
-      let model = ref(12);
-      const updateModel = (event) => (model.value = event);
+      let model: Ref<number> = ref(1.23456789e-12);
+      const updateModel = (event: number) => (model.value = event);
       return { args, model, updateModel };
     },
     template: `
-    <h3>Field displaying number in scientific notation</h3>
-    <div style="max-width: 40rem" class="mt-4">
-    <div class="input-group mb-4"><span class="input-group-text bg-secondary-subtle w-50">Outside input: </span><input type="number" v-model="model" class="form-control" /></div>
-    <div class="input-group"><span class="input-group-text bg-secondary-subtle w-50">VueNumLocaleInput component</span><VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" class="form-control" /></div>
-    </div>
+          <div class="input-group mb-4">
+            <span class="input-group-text bg-secondary-subtle w-50">Outside input: </span>
+            <input type="number" v-model="model" class="form-control" />
+          </div>
+          <div class="input-group">
+            <span class="input-group-text bg-secondary-subtle w-50">VueNumLocaleInput component</span>
+            <VueNumLocaleInput v-bind="args" :modelValue="model" @update:modelValue="updateModel" class="form-control" />
+          </div>
     `,
   }),
   args: {
@@ -43,14 +56,14 @@ export const SingleFieldWithOptions = {
 
 export const ThreeFieldsBootstraped = {
   name: "Three fields as Bootstrap Input Group",
-  render: (args) => ({
+  render: (args: any) => ({
     components: { VueNumLocaleInput },
     data() {
       return { secondValue: -273.15 };
     },
     setup() {
-      let firstValue = ref(12);
-      const updateFirstValue = (event) => (firstValue.value = event);
+      let firstValue: Ref<number> = ref(12);
+      const updateFirstValue = (event: number) => (firstValue.value = event);
       return {
         args,
         firstValue,
@@ -73,6 +86,7 @@ export const ThreeFieldsBootstraped = {
   args: {
     step: 1,
     max: 20,
+    min: -10,
     class: "form-control",
     options: {
       minimumFractionDigits: undefined,
@@ -82,14 +96,14 @@ export const ThreeFieldsBootstraped = {
 };
 
 export const NumericTable = {
-  render: (args) => ({
+  render: (args: any) => ({
     components: { VueNumLocaleInput },
     setup() {
-      let numArray = ref([]);
+      let numArray: Ref<Ref<number>[][]> = ref([]);
       const min = -10000000;
       const max = 10000000;
       for (let i = 0; i < 10; i++) {
-        let row = [];
+        let row: Ref<number>[] = [];
         for (let j = 0; j < 4; j++) {
           row.push(ref(Math.random() * (max - min + 1) + min));
         }
@@ -116,6 +130,8 @@ export const NumericTable = {
   }),
   args: {
     step: 1,
+    min: -10000000,
+    max: 10000000,
     class: "form-control text-end",
     options: {
       minimumFractionDigits: 2,
