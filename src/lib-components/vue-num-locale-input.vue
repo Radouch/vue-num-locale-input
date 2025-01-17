@@ -20,20 +20,30 @@
 <script setup lang="ts">
 import { ref, nextTick, computed, useAttrs } from "vue";
 
-const props = defineProps({
-  modelValue: {
-    type: Number,
-    required: false,
-  },
-  /** See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options */
-  options: {
-    type: Object,
-    required: false,
-    default: () => ({}),
-  },
+interface Props {
+  /** 
+   * Numeric model value
+   *  */
+  modelValue?: number;
+  /** 
+   * Options for Intl.NumberFormat
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
+   */
+  options?: Record<string, unknown>;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  options: () => ({}),
 });
 
-const emit = defineEmits(["update:modelValue"]);
+interface Emits {
+  /** Emits when value is changed and is valid number */
+  (event: "update:modelValue", value: number) : void;
+}
+
+const emit = defineEmits<Emits>();
+
+// const emit = defineEmits(["update:modelValue"]);
 
 /** Which type of input is shown? */
 const shown = ref("text");
