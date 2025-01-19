@@ -7,9 +7,14 @@ import { ref, type Ref } from "vue";
 
 type Story = StoryObj<typeof VueNumLocaleInput> & {args: {min?: number, max?: number, step?: number}};
 
-const meta: Meta<Story> = {
+/* const meta: Meta<Story> = {
   component: VueNumLocaleInput
-};
+}; */
+
+// Nw we can use the satisfies method to check if the StoryObj is a Meta
+const meta = {
+  component: VueNumLocaleInput,
+} satisfies Meta<typeof VueNumLocaleInput>;
 
 export default meta;
 
