@@ -1,6 +1,7 @@
 /* VueNumLocaleInput.stories.ts */
 
 import type { Meta, StoryObj } from "@storybook/vue3";
+import { action } from '@storybook/addon-actions';
 import VueNumLocaleInput from "../lib-components/vue-num-locale-input.vue";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ref, type Ref } from "vue";
@@ -33,7 +34,11 @@ export const SingleFieldWithOptions: Story = {
     components: { VueNumLocaleInput },
     setup() {
       let model: Ref<number> = ref(1.23456789e-12);
-      const updateModel = (event: number) => (model.value = event);
+      const updateModel = (event: number) => {
+        model.value = event;
+        // Just logging for Storybook Action panel
+        action("update")(event);
+      };
       return { args, model, updateModel };
     },
     template: `
