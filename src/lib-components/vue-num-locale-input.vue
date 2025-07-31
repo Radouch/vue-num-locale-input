@@ -38,8 +38,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 interface Emits {
-  /** Emits when value is changed and is valid number, or undefined when cleared */
-  (event: "update:modelValue", value: number | undefined): void;
+  /** Emits when value is changed and is valid number, or null when cleared */
+  (event: "update:modelValue", value: number | null): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -97,7 +97,7 @@ const internalValue = computed({
     if (typeof val === 'string') {
       // Handle empty string - clear the model value
       if (val.trim() === '') {
-        emit("update:modelValue", undefined);
+        emit("update:modelValue", null);
         return;
       }
       
