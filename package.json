@@ -2,7 +2,7 @@
   "name": "vue-num-locale-input",
   "author": "Radouch",
   "description": "Vue 3 component: input numeric field which is rendered as language sensitive string",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": false,
   "license": "MIT",
   "keywords": [
