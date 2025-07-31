@@ -113,6 +113,11 @@ const internalValue = computed({
 const handleKeyDown = (event: KeyboardEvent) => {
   const target = event.target as HTMLInputElement;
   const key = event.key;
+  const selectionStart = target.selectionStart ?? 0;
+  const selectionEnd = target.selectionEnd ?? 0;
+  const hasSelection = selectionStart !== selectionEnd;
+  
+  console.log('Key pressed:', key, 'at position:', selectionStart, 'current value:', target.value);
   
   // Allow control keys (backspace, delete, arrow keys, tab, etc.)
   if (
@@ -134,14 +139,33 @@ const handleKeyDown = (event: KeyboardEvent) => {
     return;
   }
   
-  // Allow decimal point/comma (but only one)
-  if ((key === '.' || key === ',') && !target.value.includes('.') && !target.value.includes(',')) {
-    return;
+  // Allow decimal point/comma (but only one, unless replacing selection)
+  if ((key === '.' || key === ',')) {
+    if (hasSelection || (!target.value.includes('.') && !target.value.includes(','))) {
+      return;
+    }
   }
   
-  // Allow minus sign at the beginning
-  if (key === '-' && target.selectionStart === 0 && !target.value.includes('-')) {
-    return;
+  // Allow minus sign at the beginning or when replacing text from beginning
+  if (key === '-') {
+    if (selectionStart === 0 || (hasSelection && selectionStart === 0)) {
+      return;
+    }
+    // Also allow after 'e' for scientific notation
+    if (target.value.toLowerCase().endsWith('e')) {
+      return;
+    }
+  }
+  
+  // Allow plus sign at the beginning or when replacing text from beginning
+  if (key === '+') {
+    if (selectionStart === 0 || (hasSelection && selectionStart === 0)) {
+      return;
+    }
+    // Also allow after 'e' for scientific notation
+    if (target.value.toLowerCase().endsWith('e')) {
+      return;
+    }
   }
   
   // Allow 'e' or 'E' for scientific notation (but only one, and not at the beginning)
@@ -149,11 +173,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
     return;
   }
   
-  // Allow '+' or '-' after 'e' for scientific notation
-  if ((key === '+' || key === '-') && target.value.toLowerCase().endsWith('e')) {
-    return;
-  }
-  
+  console.log('Blocking key:', key);
   // Block all other keys
   event.preventDefault();
 };
