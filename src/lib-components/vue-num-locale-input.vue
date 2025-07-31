@@ -38,8 +38,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 interface Emits {
-  /** Emits when value is changed and is valid number */
-  (event: "update:modelValue", value: number): void;
+  /** Emits when value is changed and is valid number, or undefined when cleared */
+  (event: "update:modelValue", value: number | undefined): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -92,19 +92,27 @@ const parseNumberAggressive = (input: string): number | null => {
 /** Internal value for input type=number */
 const internalValue = computed({
   get: () => props.modelValue,
-  set: (val) => {
+  set: (val: any) => {
     // Handle string input from user typing
     if (typeof val === 'string') {
+      // Handle empty string - clear the model value
+      if (val.trim() === '') {
+        emit("update:modelValue", undefined);
+        return;
+      }
+      
       const parsedNumber = parseNumberAggressive(val);
       if (parsedNumber !== null) {
         emit("update:modelValue", parsedNumber);
       }
+      // Note: if parsing fails, we don't emit anything, keeping the current value
+      // This allows the user to continue typing (e.g., typing "1." while building "1.23")
       return;
     }
     
     // Handle numeric input
     if (val !== undefined && val !== null && !Number.isNaN(val)) {
-      emit("update:modelValue", val);
+      emit("update:modelValue", val as number);
     }
   },
 });
