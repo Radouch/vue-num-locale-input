@@ -11,8 +11,8 @@
     v-else
     type="number"
     v-bind="filteredAttrs"
-    :value="numberInputValue"
-    @input="handleNumberInput"
+    v-model="internalValue"
+    @keydown="handleKeyDown"
     @focusout="handleNumberFocusOut"
     ref="inpnum"
   />
@@ -52,9 +52,6 @@ const shown = ref("text");
 /** HTML Input type=number element */
 const inpnum = ref<HTMLInputElement | null>(null);
 
-/** Raw user input in the number field (preserves invalid input) */
-const rawNumberInput = ref<string>("");
-
 /** Number formatted as locale string */
 const formattedValue = computed(() => {
   return typeof props.modelValue === "number"
@@ -92,46 +89,78 @@ const parseNumberAggressive = (input: string): number | null => {
   return null;
 };
 
-/** Value to display in the number input */
-const numberInputValue = computed(() => {
-  // If we have raw user input, show that (preserves invalid input)
-  if (rawNumberInput.value !== "") {
-    return rawNumberInput.value;
-  }
-  // Otherwise show the current model value
-  return props.modelValue?.toString() ?? "";
-});
-
 /** Internal value for input type=number */
 const internalValue = computed({
   get: () => props.modelValue,
   set: (val) => {
+    // Handle string input from user typing
+    if (typeof val === 'string') {
+      const parsedNumber = parseNumberAggressive(val);
+      if (parsedNumber !== null) {
+        emit("update:modelValue", parsedNumber);
+      }
+      return;
+    }
+    
+    // Handle numeric input
     if (val !== undefined && val !== null && !Number.isNaN(val)) {
       emit("update:modelValue", val);
     }
   },
 });
 
-/** Handle input events on the number field */
-const handleNumberInput = (event: Event) => {
+/** Handle keydown events to prevent invalid characters (like Chrome does) */
+const handleKeyDown = (event: KeyboardEvent) => {
   const target = event.target as HTMLInputElement;
-  const inputValue = target.value;
+  const key = event.key;
   
-  // Store the raw input to preserve invalid values
-  rawNumberInput.value = inputValue;
-  
-  // Try to parse and emit if it's a valid number
-  const parsedNumber = parseNumberAggressive(inputValue);
-  if (parsedNumber !== null) {
-    emit("update:modelValue", parsedNumber);
+  // Allow control keys (backspace, delete, arrow keys, tab, etc.)
+  if (
+    key === 'Backspace' ||
+    key === 'Delete' ||
+    key === 'Tab' ||
+    key === 'Escape' ||
+    key === 'Enter' ||
+    key === 'Home' ||
+    key === 'End' ||
+    key.startsWith('Arrow') ||
+    (event.ctrlKey || event.metaKey) // Allow Ctrl/Cmd combinations (copy, paste, etc.)
+  ) {
+    return; // Allow these keys
   }
+  
+  // Allow digits
+  if (/^[0-9]$/.test(key)) {
+    return;
+  }
+  
+  // Allow decimal point/comma (but only one)
+  if ((key === '.' || key === ',') && !target.value.includes('.') && !target.value.includes(',')) {
+    return;
+  }
+  
+  // Allow minus sign at the beginning
+  if (key === '-' && target.selectionStart === 0 && !target.value.includes('-')) {
+    return;
+  }
+  
+  // Allow 'e' or 'E' for scientific notation (but only one, and not at the beginning)
+  if ((key === 'e' || key === 'E') && target.value.length > 0 && !target.value.toLowerCase().includes('e')) {
+    return;
+  }
+  
+  // Allow '+' or '-' after 'e' for scientific notation
+  if ((key === '+' || key === '-') && target.value.toLowerCase().endsWith('e')) {
+    return;
+  }
+  
+  // Block all other keys
+  event.preventDefault();
 };
 
 /** Handle FocusIn event on input type=text - replace text input with number input */
 const handleNumberFocusIn = async () => {
   shown.value = "number";
-  // Clear raw input so we start with the current model value
-  rawNumberInput.value = "";
   await nextTick();
   if (inpnum.value instanceof HTMLInputElement) {
     inpnum.value.focus();
@@ -141,8 +170,6 @@ const handleNumberFocusIn = async () => {
 /** Handle FocusOut event on input type=number */
 const handleNumberFocusOut = () => {
   shown.value = "text";
-  // Keep the raw input - don't clear it anymore
-  // This preserves invalid input for the user to see and correct
 };
 
 /** Prevent passing unwanted attributes to input elements */
