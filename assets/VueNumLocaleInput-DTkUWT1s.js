@@ -1,4 +1,4 @@
-import{j as e,M as r,C as o,a as l}from"./DocsRenderer-CFRXHY34-CGBwU87c.js";import{useMDXComponents as s}from"./index-Duo-dY6w.js";import{V as a,S as c,T as d}from"./VueNumLocaleInput.stories-m8ckZVtK.js";import"./iframe-BfvDyEIL.js";import"./index-DZVNkkTA.js";import"./index-Cu4lwwaE.js";import"./index-ogSvIofg.js";import"./v4-CtRu48qb.js";import"./vue.esm-bundler-Du9k2es5.js";function i(t){const n={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...s(),...t.components};return e.jsxs(e.Fragment,{children:[`
+import{j as e,c as r,C as i,f as l}from"./DocsRenderer-CFRXHY34-wcZT5z6l.js";import{useMDXComponents as s}from"./index-ZvJE91rJ.js";import"./preview-DR8BmcF-.js";import{V as a,S as c,T as d}from"./VueNumLocaleInput.stories-BGvJsmOK.js";import"./iframe-C4ei9VRN.js";import"./index-CEXj7t9i.js";import"./index-DrFu-skq.js";import"./v4-CtRu48qb.js";import"./vue.esm-bundler--cmgGqvu.js";const{definePreview:v}=__STORYBOOK_MODULE_PREVIEW_API__;function o(t){const n={a:"a",blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...s(),...t.components};return e.jsxs(e.Fragment,{children:[`
 `,`
 `,`
 `,`
@@ -23,7 +23,7 @@ import{j as e,M as r,C as o,a as l}from"./DocsRenderer-CFRXHY34-CGBwU87c.js";imp
 `,e.jsxs(n.p,{children:["Warning! The component ",e.jsx(n.strong,{children:"must not"})," have a ",e.jsx(n.code,{children:"type"})," defined (",e.jsx(n.code,{children:"text"}),", ",e.jsx(n.code,{children:"number"}),", event, other). The type is defined by the two internal inputs themselves, and an external definition would override this."]}),`
 `]}),`
 `,e.jsx(n.h2,{id:"single-field-with-options",children:"Single field with options"}),`
-`,e.jsx(o,{of:c}),`
+`,e.jsx(i,{of:c}),`
 `,e.jsx(l,{}),`
 `,e.jsx(n.h2,{id:"three-fields-as-bootstrap-input-group",children:"Three fields as Bootstrap Input Group"}),`
-`,e.jsx(o,{of:d})]})}function y(t={}){const{wrapper:n}={...s(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(i,{...t})}):i(t)}export{y as default};
+`,e.jsx(i,{of:d})]})}function w(t={}){const{wrapper:n}={...s(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(o,{...t})}):o(t)}export{w as default};
