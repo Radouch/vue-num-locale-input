@@ -61,31 +61,31 @@ const formattedValue = computed(() => {
 
 /** Parse number more aggressively to handle various formats */
 const parseNumberAggressive = (input: string): number | null => {
-  if (!input || typeof input !== 'string') return null;
-  
+  if (!input || typeof input !== "string") return null;
+
   // Trim whitespace
   input = input.trim();
   if (!input) return null;
-  
+
   // Try direct parsing first
   let num = parseFloat(input);
   if (!isNaN(num)) return num;
-  
+
   // Replace decimal comma with decimal point for locales that use comma
-  let cleaned = input.replace(',', '.');
+  let cleaned = input.replace(",", ".");
   num = parseFloat(cleaned);
   if (!isNaN(num)) return num;
-  
+
   // Try more aggressive cleaning: remove thousand separators
   // Handle common patterns like "1 234,56" or "1,234.56"
   cleaned = input
-    .replace(/\s+/g, '') // Remove spaces
-    .replace(/,(\d{3})/g, '$1') // Remove comma thousand separators
-    .replace(',', '.'); // Replace remaining comma with dot
-  
+    .replace(/\s+/g, "") // Remove spaces
+    .replace(/,(\d{3})/g, "$1") // Remove comma thousand separators
+    .replace(",", "."); // Replace remaining comma with dot
+
   num = parseFloat(cleaned);
   if (!isNaN(num)) return num;
-  
+
   return null;
 };
 
@@ -94,13 +94,13 @@ const internalValue = computed({
   get: () => props.modelValue,
   set: (val: any) => {
     // Handle string input from user typing
-    if (typeof val === 'string') {
+    if (typeof val === "string") {
       // Handle empty string - clear the model value
-      if (val.trim() === '') {
+      if (val.trim() === "") {
         emit("update:modelValue", null);
         return;
       }
-      
+
       const parsedNumber = parseNumberAggressive(val);
       if (parsedNumber !== null) {
         emit("update:modelValue", parsedNumber);
@@ -109,7 +109,7 @@ const internalValue = computed({
       // This allows the user to continue typing (e.g., typing "1." while building "1.23")
       return;
     }
-    
+
     // Handle numeric input
     if (val !== undefined && val !== null && !Number.isNaN(val)) {
       emit("update:modelValue", val as number);
@@ -123,51 +123,31 @@ const handleKeyDown = (event: KeyboardEvent) => {
   const key = event.key;
   const value = target.value;
 
-  // Allow control keys (backspace, delete, arrow keys, tab, etc.)
-  if (
-    key === 'Backspace' ||
-    key === 'Delete' ||
-    key === 'Tab' ||
-    key === 'Escape' ||
-    key === 'Enter' ||
-    key === 'Home' ||
-    key === 'End' ||
-    key === 'Shift' ||
-    key.startsWith('Arrow') ||
-    (event.ctrlKey || event.metaKey) // Allow Ctrl/Cmd combinations (copy, paste, etc.)
-  ) {
-    return; // Allow these keys
-  }
-
   // Allow digits
   if (/^[0-9]$/.test(key)) {
     return;
   }
 
-  // Allow decimal point/comma (but only one)
-  if ((key === '.' || key === ',') && !value.includes('.') && !value.includes(',')) {
-    return;
-  }
-
-  // Allow minus or plus sign
-  if (key === '-' || key === '+') {
-    const hasE = value.toLowerCase().includes('e');
-    const signCount = (value.match(/[-+]/g) || []).length;
-
-    if (hasE) {
-      if (signCount < 2) {
-        return;
-      }
-    } else {
-      if (signCount < 1) {
-        return;
-      }
-    }
-  }
-
-  // Allow 'e' or 'E' for scientific notation (but only one, and not at the beginning)
-  if ((key.toLowerCase() === 'e') && value.length > 0 && !value.toLowerCase().includes('e')) {
-    return;
+  // Allow control keys (backspace, delete, arrow keys, tab, etc.)
+  if (
+    key === "Backspace" ||
+    key === "Delete" ||
+    key === "Tab" ||
+    key === "Escape" ||
+    key === "Enter" ||
+    key === "Home" ||
+    key === "End" ||
+    key === "Shift" ||
+    key === "." ||
+    key === "," ||
+    key === "-" ||
+    key === "+" ||
+    key.toLowerCase() === "e" ||
+    key.startsWith("Arrow") ||
+    event.ctrlKey ||
+    event.metaKey // Allow Ctrl/Cmd combinations (copy, paste, etc.)
+  ) {
+    return; // Allow these keys
   }
 
   // Block all other keys
