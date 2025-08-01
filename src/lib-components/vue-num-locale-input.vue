@@ -117,16 +117,12 @@ const internalValue = computed({
   },
 });
 
-/** Handle keydown events to prevent invalid characters (like Chrome does) */
+/** Handle keydown events to prevent invalid characters */
 const handleKeyDown = (event: KeyboardEvent) => {
   const target = event.target as HTMLInputElement;
   const key = event.key;
-  const selectionStart = target.selectionStart ?? 0;
-  const selectionEnd = target.selectionEnd ?? 0;
-  const hasSelection = selectionStart !== selectionEnd;
-  
-  console.log('Key pressed:', key, 'at position:', selectionStart, 'current value:', target.value);
-  
+  const value = target.value;
+
   // Allow control keys (backspace, delete, arrow keys, tab, etc.)
   if (
     key === 'Backspace' ||
@@ -136,52 +132,44 @@ const handleKeyDown = (event: KeyboardEvent) => {
     key === 'Enter' ||
     key === 'Home' ||
     key === 'End' ||
+    key === 'Shift' ||
     key.startsWith('Arrow') ||
     (event.ctrlKey || event.metaKey) // Allow Ctrl/Cmd combinations (copy, paste, etc.)
   ) {
     return; // Allow these keys
   }
-  
+
   // Allow digits
   if (/^[0-9]$/.test(key)) {
     return;
   }
-  
-  // Allow decimal point/comma (but only one, unless replacing selection)
-  if ((key === '.' || key === ',')) {
-    if (hasSelection || (!target.value.includes('.') && !target.value.includes(','))) {
-      return;
-    }
-  }
-  
-  // Allow minus sign at the beginning or when replacing text from beginning
-  if (key === '-') {
-    if (selectionStart === 0 || (hasSelection && selectionStart === 0)) {
-      return;
-    }
-    // Also allow after 'e' for scientific notation
-    if (target.value.toLowerCase().endsWith('e')) {
-      return;
-    }
-  }
-  
-  // Allow plus sign at the beginning or when replacing text from beginning
-  if (key === '+') {
-    if (selectionStart === 0 || (hasSelection && selectionStart === 0)) {
-      return;
-    }
-    // Also allow after 'e' for scientific notation
-    if (target.value.toLowerCase().endsWith('e')) {
-      return;
-    }
-  }
-  
-  // Allow 'e' or 'E' for scientific notation (but only one, and not at the beginning)
-  if ((key === 'e' || key === 'E') && target.value.length > 0 && !target.value.toLowerCase().includes('e')) {
+
+  // Allow decimal point/comma (but only one)
+  if ((key === '.' || key === ',') && !value.includes('.') && !value.includes(',')) {
     return;
   }
-  
-  console.log('Blocking key:', key);
+
+  // Allow minus or plus sign
+  if (key === '-' || key === '+') {
+    const hasE = value.toLowerCase().includes('e');
+    const signCount = (value.match(/[-+]/g) || []).length;
+
+    if (hasE) {
+      if (signCount < 2) {
+        return;
+      }
+    } else {
+      if (signCount < 1) {
+        return;
+      }
+    }
+  }
+
+  // Allow 'e' or 'E' for scientific notation (but only one, and not at the beginning)
+  if ((key.toLowerCase() === 'e') && value.length > 0 && !value.toLowerCase().includes('e')) {
+    return;
+  }
+
   // Block all other keys
   event.preventDefault();
 };
